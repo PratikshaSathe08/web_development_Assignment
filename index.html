@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Animation - PHASE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: black;
+            color: white;
+            overflow: hidden;
+        }
+
+        .loading-screen, .message-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .loading-text {
+            font-size: 4rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            background: linear-gradient(to right, white 50%, transparent 50%);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: fillText 2s forwards ease-in-out;
+        }
+
+        .message-text {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .message-text:hover {
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            background: linear-gradient(to right, white 50%, transparent 50%);
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        @keyframes fillText {
+            0% { background-position: 100% 0; }
+            100% { background-position: 0 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Animation -->
+    <div class="loading-screen">
+        <h1 class="loading-text">PHASE</h1>
+    </div>
+    
+    <!-- Message Animation -->
+    <div class="message-screen" style="display: none;">
+        <h2 class="message-text">Imagining unique concept and digital experience</h2>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.to(".loading-text", { duration: 1.5, opacity: 0, scale: 1.5, ease: "power2.out", delay: 1 });
+            gsap.to(".loading-screen", { duration: 1, opacity: 0, delay: 2, onComplete: () => {
+                document.querySelector(".loading-screen").style.display = "none";
+                document.querySelector(".message-screen").style.display = "flex";
+                gsap.to(".message-text", { duration: 1, opacity: 1, y: 0, ease: "power2.out" });
+                gsap.to(".message-text", { duration: 1, backgroundPosition: "0 0", delay: 1 });
+            }});
+        });
+    </script>
+
+</body>
+</html>
